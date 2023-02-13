@@ -104,7 +104,19 @@ jQuery(document).ready(function($){
                 jQuery('#financialIndicatorModal').modal('hide')
             },
             error: function (data) {
-                console.log('Error:', data);
+                if( data.status === 422 ) {
+                    errors = data.responseJSON.errors;
+
+                    errorsHtml = '<div class="alert alert-danger"><ul>';
+                    $.each( errors, function( key, value ) {
+                        errorsHtml += '<li>' + value[0] + '</li>';
+                    });
+                    errorsHtml += '</ul></di>';
+                        
+                    $('.modal-body').append(errorsHtml);
+                } else {
+                    console.log('Error:', data);
+                }
             }
         });
     });
