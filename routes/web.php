@@ -17,4 +17,5 @@ Route::get('/', function () {
     return redirect()->route('financialIndicators.index');
 });
 
+Route::get('financial-indicators/chart', 'FinancialIndicatorController@chartFilter')->name('financialIndicators.chart');
 Route::resource('financial-indicators', 'FinancialIndicatorController')->names('financialIndicators');

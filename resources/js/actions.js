@@ -1,3 +1,14 @@
+const config = {
+    type: 'line',
+    data: {},
+    options: {}
+};
+
+const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+);
+
 jQuery(document).ready(function($){
 
     jQuery('#btn-add').click(function () {
@@ -116,4 +127,63 @@ jQuery(document).ready(function($){
             }
         });
     });
+
+    jQuery('#filter-button').click(function (e) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        e.preventDefault();
+        var from = $('#from').val();
+        var to = $('#to').val();
+        $.ajax({
+            type: "GET",
+            url: route('financialIndicators.chart'),
+            data: {
+                from,
+                to
+            },
+            dataType: 'json',
+            success: function (data) {
+                config.data = chart(data.labels, data.values);
+                myChart.update();
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+    });
+
+    function chart(labelsDb, dataDb){
+        const labels = labelsDb;
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'UF chart',
+                data: dataDb,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        return data;
+    }
 });

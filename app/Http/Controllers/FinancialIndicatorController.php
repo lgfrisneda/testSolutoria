@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\FinancialIndicator;
 use App\Http\Requests\StoreFinancialIndicatorRequest;
 use App\Http\Requests\UpdateFinancialIndicatorRequest;
+use Illuminate\Http\Request;
 
 class FinancialIndicatorController extends Controller
 {
@@ -18,6 +19,22 @@ class FinancialIndicatorController extends Controller
         $financialIndicators = FinancialIndicator::all();
 
         return view('welcome', compact('financialIndicators'));
+    }
+
+    public function chartFilter(Request $request)
+    {
+        $from = $request->from ?? null;
+        $to = $request->to ?? null;
+
+        $dataFilter = FinancialIndicator::whereBetween('date', [$from, $to])->orderBy('date', 'ASC')->pluck('value','date');
+
+        $labels = $dataFilter->keys();
+        $values = $dataFilter->values();
+
+        return response()->json([
+            'labels' => $labels,
+            'values' => $values
+        ]);
     }
 
     /**
