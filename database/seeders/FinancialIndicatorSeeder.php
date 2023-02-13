@@ -19,16 +19,18 @@ class FinancialIndicatorSeeder extends Seeder
         $data = json_decode($datajson);
 
         foreach($data as $key => $value){
-            FinancialIndicator::create([
-                'id' => $value->id,
-                'name' => $value->nombreIndicador,
-                'code' => $value->codigoIndicador,
-                'unit' => $value->unidadMedidaIndicador,
-                'value' => $value->valorIndicador,
-                'date' => $value->fechaIndicador,
-                'time' => $value->tiempoIndicador,
-                'origin' => $value->origenIndicador,
-            ]);
+            if($value->codigoIndicador == 'UF'){
+                FinancialIndicator::create([
+                    'id' => $value->id,
+                    'name' => $value->nombreIndicador,
+                    'code' => $value->codigoIndicador,
+                    'unit' => $value->unidadMedidaIndicador,
+                    'value' => $value->valorIndicador,
+                    'date' => $value->fechaIndicador,
+                    'time' => $value->tiempoIndicador,
+                    'origin' => $value->origenIndicador,
+                ]);
+            }
         }
     }
 }
