@@ -17,7 +17,7 @@ class FinancialIndicatorController extends Controller
     {
         $financialIndicators = FinancialIndicator::all();
 
-        return response()->json($financialIndicators);
+        return view('welcome', compact('financialIndicators'));
     }
 
     /**
@@ -39,9 +39,9 @@ class FinancialIndicatorController extends Controller
     public function store(StoreFinancialIndicatorRequest $request)
     {
         $dataValidated = $request->validated();
-        FinancialIndicator::create($dataValidated);
+        $newRecord = FinancialIndicator::create($dataValidated);
 
-        return response()->json(['message' => 'Save success']);
+        return response()->json(['message' => 'Save success', 'record' => $newRecord]);
     }
 
     /**
@@ -78,7 +78,7 @@ class FinancialIndicatorController extends Controller
         $dataValidated = $request->validated();
         $financialIndicator->update($dataValidated);
 
-        return response()->json(['message' => 'Updated success'], 200);
+        return response()->json(['message' => 'Updated success', 'record' => $financialIndicator->fresh()]);
     }
 
     /**

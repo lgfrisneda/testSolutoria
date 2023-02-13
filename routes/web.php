@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('financialIndicators.index');
 });
 
 Route::resource('financial-indicators', 'FinancialIndicatorController')->names('financialIndicators');
