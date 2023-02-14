@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Laravel</title>
@@ -34,7 +33,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="my-2">
-                        <button id="btn-add" class="btn btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#financialIndicatorModal">Crear Usuario</button>
+                        <button id="btn-add" class="btn btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#financialIndicatorModal">Create record</button>
                     </div>
                     <div class="card">
                         <table class="table">
@@ -57,7 +56,7 @@
                                             <button value="{{ $financialIndicator->id }}" class="btn btn-sm btn-primary open-model" data-bs-toggle="modal" data-bs-target="#financialIndicatorModal">
                                                 Edit
                                             </button>
-                                            <button value="{{ $financialIndicator->id }}" class="btn btn-sm btn-primary delete-financialIndicator">
+                                            <button value="{{ $financialIndicator->id }}" class="btn btn-sm btn-danger delete-financialIndicator">
                                                 Delete
                                             </button>
                                         </div>
@@ -72,7 +71,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="financialIndicatorModalLabel">Modal title</h5>
+                                    <h5 class="modal-title" id="financialIndicatorModalLabel">Modal data</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
